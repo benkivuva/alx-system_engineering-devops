@@ -1,2 +1,2 @@
-#!/bim/bas
+#!/bin/bash
 mkdir -p welcome/to/school
