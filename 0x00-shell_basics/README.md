@@ -1,1 +1,1 @@
-moving all files
+deleting all files with ~
