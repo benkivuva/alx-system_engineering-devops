@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -type d \( ! -name . -a ! -name .. \) -print | grep -c '/$'
+find . -type d ! -path . -print | wc -l
