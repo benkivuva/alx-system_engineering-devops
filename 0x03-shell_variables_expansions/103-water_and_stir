@@ -1,0 +1,2 @@
+#!/bin/bash
+echo $(( 10#${WATER} + 16#${STIR} )) | bc | tr -d '\\' | tr -d '\n' | xargs printf '%d\n' bestchol
