@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Display content in the file /etc/passwd and write a story on each user
+
+IFS=$'\n'
+while read -r user; do
+    UNAME=$(echo "$user" | cut -f1 -d':')
+    PWORD=$(echo "$user" | cut -f2 -d':')
+    USID=$(echo "$user" | cut -f3 -d':')
+    GRID=$(echo "$user" | cut -f4 -d':')
+    UIDINFO=$(echo "$user" | cut -f5 -d':')
+    HDIR=$(echo "$user" | cut -f6 -d':')
+    LOGIN=$(echo "$user" | cut -f7 -d':')
+
+    echo "The user $UNAME is part of the $GRID gang, lives in $HDIR and rides $LOGIN. $USID's place is protected by the passcode $PWORD, more info about the user here: $UIDINFO"
+done < /etc/passwd
