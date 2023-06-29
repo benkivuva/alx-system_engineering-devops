@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# This script displays the content of the current directory in a list format
+
+for file in *; do
+    if [[ -f "$file" && ! "$file" =~ ^\..* ]]; then
+        filename=$(echo "$file" | awk -F'-' '{print $2}')
+        echo "$filename"
+    fi
+done
