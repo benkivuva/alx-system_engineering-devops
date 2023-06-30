@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# displays all processes for all users. Only the lines containing bash
+# shellcheck disable=SC2009
+ps -auxf | grep bash
