@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Manages a daemon process
+
+PIDFILE=/var/run/my_process.pid
+PROCESS_NAME="manage_my_process"
+
+start_process() {
+    ./"$PROCESS_NAME" &
+    echo "$!" > "$PIDFILE"
+    echo "$PROCESS_NAME started"
+}
+
+stop_process() {
+    pkill -SIGKILL -f "./$PROCESS_NAME"
+    rm "$PIDFILE"
+    echo "$PROCESS_NAME stopped"
+}
+
+restart_process() {
+    stop_process
+    start_process
+    echo "$PROCESS_NAME restarted"
+}
+
+case "$1" in
+    start)
+        start_process
+        ;;
+    stop)
+        stop_process
+        ;;
+    restart)
+        restart_process
+        ;;
+    *)
+        echo "Usage: manage_my_process {start|stop|restart}"
+        ;;
+esac
