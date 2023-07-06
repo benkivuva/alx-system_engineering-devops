@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# display hosts that are listening
+netstat -lp
