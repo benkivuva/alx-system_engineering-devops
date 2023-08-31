@@ -1,19 +1,42 @@
 #!/usr/bin/env bash
-# Install Nginx
-apt-get -y update
-apt-get -y install nginx
+# sets up a new 404 error page
 
-# Create index.html
-echo "Hello World!" | /var/www/html/index.html
+# Update package information
+sudo apt-get update
 
-# Add redirection rule to Nginx configuration
-sed -i "/server_name _;/ a\\\trewrite ^/redirect_me http://www.github.com permanent;" /etc/nginx/sites-available/default
+# Install the Nginx web server
+sudo apt-get install -y nginx
 
-# Add custom 404 page configuration
-sed -i "/redirect_me/ a\\\terror_page 404 /custom_404.html;" /etc/nginx/sites-available/default
+# Create and move content to index.html
+echo "Hello World!" > index.html
+sudo mv index.html /var/www/html
 
-# Create custom 404 page
-echo "Ceci n'est pas une page" | /var/www/html/custom_404.html
+# Create and move content to custom 404.html
+echo "Ceci n'est pas une page" > 404.html
+sudo mv 404.html /var/www/html
 
-# Restart Nginx service
+# Configure Nginx server block
+echo "server {
+   listen 80 default_server;
+   listen [::]:80 default_server;
+
+   root /var/www/html;
+   index index.html;
+
+   # Redirect location
+   location /redirect_me {
+      return 301 https://www.github.com/benkivuva;
+   }
+
+   # Custom 404 error page
+   error_page 404 /404.html;
+   location = /404.html{
+      internal;
+   }
+}" > default
+
+# Move and replace the Nginx default site configuration
+sudo mv -f default /etc/nginx/sites-available/default
+
+# Restart Nginx to apply changes
 sudo service nginx restart
