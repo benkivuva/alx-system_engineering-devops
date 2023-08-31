@@ -64,7 +64,7 @@ file { 'Nginx default config file':
 
     # Redirect Rule
     if (\$request_filename ~ redirect_me) {
-        rewrite ^ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
+        rewrite ^ https://www.github.com/benkivuva permanent;
     }
 }",
 }
