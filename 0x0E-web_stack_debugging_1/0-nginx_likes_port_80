@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Bash script that configs to list at port 80
-sed -i "s/8080/80/g" /etc/nginx/sites-enabled/default
+ln -fs /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 sudo service nginx restart
