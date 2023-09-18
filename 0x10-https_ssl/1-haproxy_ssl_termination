@@ -32,18 +32,13 @@ defaults
         errorfile 502 /etc/haproxy/errors/502.http
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
-frontend  my-frontend-http
-        bind *:80
-        mode http
-        http-request set-header X-Forwarded-Proto http
-        default_backend my-backend
+frontend http_front
+    bind *:80
+    bind *:443 ssl crt /etc/haproxy/certs/www.benkivuva.tech.pem
+    redirect scheme https code 301 if !{ ssl_fc }
+    default_backend http_back
 
-frontend my-frontend-https
-        bind *:443 ssl crt /etc/haproxy/certs/www.benkivuva.tech.pem
-        http-request set-header X-Forwarded-Proto https
-        default_backend my-backend
-
-backend my-backend
-        balance roundrobin
-        server 279535-web-01 100.25.119.2:80 check
-        server 279535-web-02 100.25.136.71:80 check
+backend http_back
+    balance roundrobin
+    server 279535-web-01 100.25.119.2:80 check
+    server 279535-web-02 100.25.136.71:80 check
