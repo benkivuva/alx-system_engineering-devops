@@ -1,3 +1,4 @@
+![Outage](https://media.makeameme.org/created/when-the-production-16ad2145ce.jpg)
 # Postmortem: Web Server Outage - October 16, 2023
 
 ### Issue Summary:
